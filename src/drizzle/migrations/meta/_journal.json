@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1750870651567,
+      "tag": "0000_fat_exodus",
+      "breakpoints": true
+    }
+  ]
+}
