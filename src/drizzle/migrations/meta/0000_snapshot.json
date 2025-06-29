@@ -1,5 +1,5 @@
 {
-  "id": "54be24e6-7e23-4a88-9c95-135922f53def",
+  "id": "7ebed1c0-9387-4ad4-aa61-993d1e368697",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -242,7 +242,7 @@
         },
         "stage": {
           "name": "stage",
-          "type": "job_listings_location_requirement",
+          "type": "job_listing_applications_stage",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
@@ -326,7 +326,7 @@
           "name": "imageUrl",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "createdAt": {
           "name": "createdAt",
@@ -596,11 +596,9 @@
       "name": "job_listings_location_requirement",
       "schema": "public",
       "values": [
-        "denied",
-        "applied",
-        "interested",
-        "interviewed",
-        "hired"
+        "in-office",
+        "hybrid",
+        "remote"
       ]
     },
     "public.job_listings_wage_interval": {
@@ -609,6 +607,17 @@
       "values": [
         "hourly",
         "yearly"
+      ]
+    },
+    "public.job_listing_applications_stage": {
+      "name": "job_listing_applications_stage",
+      "schema": "public",
+      "values": [
+        "denied",
+        "applied",
+        "interested",
+        "interviewed",
+        "hired"
       ]
     }
   },

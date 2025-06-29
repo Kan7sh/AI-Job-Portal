@@ -1,8 +1,9 @@
 CREATE TYPE "public"."job_listings_experience_level" AS ENUM('junior', 'mid-level', 'senior');--> statement-breakpoint
 CREATE TYPE "public"."job_listings_status" AS ENUM('draft', 'published', 'delisted');--> statement-breakpoint
 CREATE TYPE "public"."job_listings_types" AS ENUM('internship', 'part-time', 'full-time');--> statement-breakpoint
-CREATE TYPE "public"."job_listings_location_requirement" AS ENUM('denied', 'applied', 'interested', 'interviewed', 'hired');--> statement-breakpoint
+CREATE TYPE "public"."job_listings_location_requirement" AS ENUM('in-office', 'hybrid', 'remote');--> statement-breakpoint
 CREATE TYPE "public"."job_listings_wage_interval" AS ENUM('hourly', 'yearly');--> statement-breakpoint
+CREATE TYPE "public"."job_listing_applications_stage" AS ENUM('denied', 'applied', 'interested', 'interviewed', 'hired');--> statement-breakpoint
 CREATE TABLE "users" (
 	"id" varchar PRIMARY KEY NOT NULL,
 	"name" varchar NOT NULL,
@@ -37,7 +38,7 @@ CREATE TABLE "job_listing_applications" (
 	"userId" varchar NOT NULL,
 	"coverLetter" varchar,
 	"rating" integer,
-	"stage" "job_listings_location_requirement" DEFAULT 'applied' NOT NULL,
+	"stage" "job_listing_applications_stage" DEFAULT 'applied' NOT NULL,
 	"createdAt" timestamp with time zone DEFAULT now() NOT NULL,
 	"updatedAt" timestamp with time zone DEFAULT now() NOT NULL,
 	CONSTRAINT "job_listing_applications_jobListingId_userId_pk" PRIMARY KEY("jobListingId","userId")
@@ -46,7 +47,7 @@ CREATE TABLE "job_listing_applications" (
 CREATE TABLE "organizations" (
 	"id" varchar PRIMARY KEY NOT NULL,
 	"name" varchar NOT NULL,
-	"imageUrl" varchar NOT NULL,
+	"imageUrl" varchar,
 	"createdAt" timestamp with time zone DEFAULT now() NOT NULL,
 	"updatedAt" timestamp with time zone DEFAULT now() NOT NULL
 );
