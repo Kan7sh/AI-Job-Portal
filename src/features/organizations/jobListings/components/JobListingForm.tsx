@@ -1,6 +1,8 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { jobListingSchema } from "../actions/schemas";
 import {
   Form,
   FormControl,
@@ -10,9 +12,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { jobListingSchema } from "../actions/schemas";
 import { z } from "zod";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -22,7 +23,9 @@ import {
 } from "@/components/ui/select";
 import {
   experienceLevels,
+  JobListingTable,
   jobListingTypes,
+  locationRequirementEnum,
   locationRequirements,
   wageIntervals,
 } from "@/drizzle/schema";
@@ -36,15 +39,32 @@ import { StateSelectItems } from "./StateSelectItems";
 import { MarkdownEditor } from "@/components/markdown/MarkdownEditor";
 import { Button } from "@/components/ui/button";
 import { LoadingSwap } from "@/components/LoadingSwap";
-import { createJobListing } from "../actions/actions";
+import { Loader2Icon } from "lucide-react";
+import { createJobListing, updateJobListing } from "../actions/actions";
 import { toast } from "sonner";
 
-type JobListingFormData = z.infer<typeof jobListingSchema>;
-const NON_SELECT_VALUE = "none";
-export default function JobListingForm() {
-  const form = useForm<JobListingFormData>({
+const NONE_SELECT_VALUE = "none";
+
+export function JobListingForm({
+  jobListing,
+}: {
+  jobListing?: Pick<
+    typeof JobListingTable.$inferSelect,
+    | "title"
+    | "description"
+    | "experienceLevel"
+    | "id"
+    | "stateAbbreviation"
+    | "type"
+    | "wage"
+    | "wageInterval"
+    | "city"
+    | "locationRequirement"
+  >;
+}) {
+  const form = useForm({
     resolver: zodResolver(jobListingSchema),
-    defaultValues: {
+    defaultValues: jobListing ?? {
       title: "",
       description: "",
       stateAbbreviation: null,
@@ -57,10 +77,14 @@ export default function JobListingForm() {
     },
   });
 
-  async function onSubmit(data: JobListingFormData) {
-    const res = await createJobListing(data)
-    if(res.error){
-        toast.error(res.message)
+  async function onSubmit(data: z.infer<typeof jobListingSchema>) {
+    const action = jobListing
+      ? updateJobListing.bind(null, jobListing.id)
+      : createJobListing;
+    const res = await action(data);
+
+    if (res.error) {
+      toast.error(res.message);
     }
   }
 
@@ -117,7 +141,7 @@ export default function JobListingForm() {
                         >
                           <FormControl>
                             <SelectTrigger className="rounded-l-none">
-                              /<SelectValue />
+                              / <SelectValue />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -162,7 +186,7 @@ export default function JobListingForm() {
                   <Select
                     value={field.value ?? ""}
                     onValueChange={(val) =>
-                      field.onChange(val === NON_SELECT_VALUE ? null : val)
+                      field.onChange(val === NONE_SELECT_VALUE ? null : val)
                     }
                   >
                     <FormControl>
@@ -173,13 +197,12 @@ export default function JobListingForm() {
                     <SelectContent>
                       {field.value != null && (
                         <SelectItem
-                          value={NON_SELECT_VALUE}
+                          value={NONE_SELECT_VALUE}
                           className="text-muted-foreground"
                         >
                           Clear
                         </SelectItem>
                       )}
-
                       <StateSelectItems />
                     </SelectContent>
                   </Select>
@@ -193,7 +216,7 @@ export default function JobListingForm() {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Location Requirement </FormLabel>
+                <FormLabel>Location Requirement</FormLabel>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger className="w-full">
@@ -271,6 +294,7 @@ export default function JobListingForm() {
               <FormControl>
                 <MarkdownEditor {...field} markdown={field.value} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

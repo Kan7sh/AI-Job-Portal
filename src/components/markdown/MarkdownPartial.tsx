@@ -1,12 +1,14 @@
 "use client";
 
 import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Dialog, DialogHeader } from "../ui/dialog";
 import {
+  Dialog,
+  DialogHeader,
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "@radix-ui/react-dialog";
+} from "../ui/dialog";
+
 import { Button } from "../ui/button";
 
 export function MarkdownPartial({

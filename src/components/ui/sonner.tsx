@@ -1,14 +1,13 @@
 "use client"
 
-import { useTheme } from "next-themes"
+import { useIsDarkMode } from "@/hooks/useIsDarkMode"
 import { Toaster as Sonner, ToasterProps } from "sonner"
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
-
+const isDarkMode = useIsDarkMode();
   return (
     <Sonner
-      theme={theme as ToasterProps["theme"]}
+      theme={isDarkMode?"dark":"light"}
       className="toaster group"
       style={
         {

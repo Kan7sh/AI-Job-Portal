@@ -50,7 +50,7 @@ export function JobListingBadges({
 
   return (
     <>
-      {!isFeatured && (
+      {isFeatured && (
         <Badge
           {...badgeProps}
           className={cn(
@@ -66,13 +66,12 @@ export function JobListingBadges({
           <BanknoteIcon /> {formatWage(wage, wageInterval)}
         </Badge>
       )}
-      {stateAbbreviation != null ||
-        (city != null && (
-          <Badge {...badgeProps}>
-            <MapPinIcon className="size-10" />{" "}
-            {formatJobListingLocation({ stateAbbreviation, city })}
-          </Badge>
-        ))}
+      {(stateAbbreviation != null || city != null) && (
+        <Badge {...badgeProps}>
+          <MapPinIcon className="size-10" />
+          {formatJobListingLocation({ stateAbbreviation, city })}
+        </Badge>
+      )}
       <Badge {...badgeProps}>
         <BuildingIcon /> {formatLocationRequirement(locationRequirement)}
       </Badge>
