@@ -2,8 +2,11 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
+@import "uploadthing/tw/v4";
+@source "../../node_modules/@uploadthing/react/dist";
+
 @custom-variant dark {
-  @media (prefers-color-schema: dark) {
+  @media (prefers-color-scheme: dark) {
     & {
       @slot;
     }
@@ -126,6 +129,7 @@
     --sidebar-ring: oklch(0.556 0 0);
   }
 }
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -133,6 +137,7 @@
   body {
     @apply bg-background text-foreground;
   }
+
   .mdxeditor-root-contenteditable {
     @apply border-input has-focus-visible:border-ring has-focus-visible:ring-ring/50 dark:bg-input/30 rounded-md rounded-t-none border bg-transparent px-3 shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 overflow-hidden;
 

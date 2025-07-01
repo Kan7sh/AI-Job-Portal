@@ -37,7 +37,7 @@ export default function InternalMarkdownEditor({
       ref={ref}
       className={cn(
         markdownClassNames,
-        isDarkMode && "dark-theme prose-invert",
+        isDarkMode && "dark-theme",
         className
       )}
       suppressHtmlProcessing

@@ -9,7 +9,7 @@ import z from "zod";
 
 export const jobListingSchema = z
   .object({
-    title: z.string().min(1,"Required"),
+    title: z.string().min(1, "Required"),
     description: z.string().min(1),
     experienceLevel: z.enum(experienceLevels),
     locationRequirement: z.enum(locationRequirements),
@@ -46,3 +46,7 @@ export const jobListingSchema = z
       path: ["stateAbbreviation"],
     }
   );
+
+export const jobListingAiSearchSchema = z.object({
+  query: z.string().min(1, "Required"),
+});

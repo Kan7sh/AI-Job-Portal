@@ -21,7 +21,7 @@ export default function SidebarNavMenuGroup({
     label: string;
     authStatus?: "signedOut" | "signedIn";
   }[];
-  className: string;
+  className?: string;
 }) {
   const pathName = usePathname();
   return (
