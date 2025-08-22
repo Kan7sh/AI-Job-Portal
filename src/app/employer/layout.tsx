@@ -54,7 +54,7 @@ async function LayoutSuspense({ children }: { children: ReactNode }) {
             >
               <SidebarGroupAction title="Add Job Listing" asChild>
                 <Link href="/employer/job-listings/new">
-                  <PlusIcon /> <span className="sr-only">Add Job Listing</span>
+                  <PlusIcon /> <span className="sr-only">Add Job Listings</span>
                 </Link>
               </SidebarGroupAction>
             </AsyncIf>
