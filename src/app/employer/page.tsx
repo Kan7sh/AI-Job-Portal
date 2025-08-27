@@ -29,7 +29,6 @@ async function SuspendedPage() {
 async function getMostRecentJobListing(orgId: string) {
   "use cache";
 
-  //TODO:
   cacheTag(getJobListingsOrganizationTag(orgId));
 
   return db.query.JobListingTable.findFirst({

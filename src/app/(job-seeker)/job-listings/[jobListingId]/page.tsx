@@ -122,7 +122,7 @@ async function JobListingDetails({
         <div className="flex gap-4 items-start">
           <Avatar className="size-14 @max-md:hidden">
             <AvatarImage
-              src={jobListing.organization.imageUrl ?? undefined}
+              src={jobListing.organization.imageUrl ?? undefined} 
               alt={jobListing.organization.name}
             />
             <AvatarFallback className="uppercase bg-primary text-primary-foreground">
